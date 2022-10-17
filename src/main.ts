@@ -13,6 +13,7 @@ import { setupRouter } from "./router";
 import { setupI18n } from "./i18n";
 import fra from "./locales/fra.json";
 import NavBar from "./components/Nav-bar.vue";
+import ReverseModal from "./components/reverse-modal.vue";
 
 library.add(faLongArrowAltRight, faAngleDown, faAngleUp);
 
@@ -37,5 +38,6 @@ app.use(i18n);
 app.use(router);
 
 app.component("NavBar", NavBar);
+app.component("ReverseModal", ReverseModal);
 
 app.mount("#app");

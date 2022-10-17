@@ -4,6 +4,7 @@ import { useRouter } from "vue-router";
 import countries from "../components/countries.json";
 import iso3Languages from "../iso3-languages.json";
 import { ref } from "vue";
+import ReverseModal from "../components/reverse-modal.vue";
 
 const countryISO3 = useRouter().currentRoute.value.query.country;
 const countryConfig = countries.find((countryConfig) => {
@@ -14,6 +15,12 @@ const targetLanguages = useRouter().currentRoute.value.query.lang || ["fra"];
 let selectedLanguage = ref(
   Array.isArray(targetLanguages) ? targetLanguages[0] : targetLanguages
 );
+let isOpenModal = ref(false);
+let message = ref("");
+const openReverseBox = (msg: string) => {
+  message.value = msg;
+  isOpenModal.value = true;
+}
 </script>
 
 <template>
@@ -92,6 +99,7 @@ let selectedLanguage = ref(
             v-for="phrase of section.list"
             :key="phrase"
             class="box columns m-2 py-2 is-clickable change-background-on-hover"
+            v-on:click="openReverseBox('test')"
           >
             <div class="column is-half py-1">
               <p v-t="{ path: phrase }" class="bd-notification is-primary"></p>
@@ -107,6 +115,7 @@ let selectedLanguage = ref(
       </div>
     </div>
   </div>
+  <ReverseModal v-if="isOpenModal" :message="{message}"></ReverseModal>
 </template>
 
 <style scoped lang="scss">
